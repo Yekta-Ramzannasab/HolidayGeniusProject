@@ -178,7 +178,7 @@ public class Main {
     }
 
 
-    // [Previous signUpProcess(), signInProcess(), showRoleMenu() methods remain exactly the same]
+    
 
     private static void searchAndDisplaySongs() {
         System.out.println("\nAvailable Artists:");
