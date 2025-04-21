@@ -1,6 +1,8 @@
 import models.Song;
 import models.Album;
 import roles.Artist;
+
+import javax.sound.sampled.*;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -56,6 +58,7 @@ public class Main {
             }
         }
     }
+
     private static void signUpProcess() {
         System.out.println("\n=== Sign Up ===");
         System.out.println("Choose your role:");
@@ -65,7 +68,7 @@ public class Main {
         System.out.print("Enter your role (1-3): ");
 
         int roleChoice = scanner.nextInt();
-        scanner.nextLine(); // consume
+        scanner.nextLine();
         String role;
         switch (roleChoice) {
             case 1:
@@ -98,7 +101,7 @@ public class Main {
             writer.println(String.join(",", role, username, password, name, email));
             System.out.println("Registration successful!");
         } catch (IOException e) {
-                       System.out.println("Error saving user data: " + e.getMessage());
+            System.out.println("Error saving user data: " + e.getMessage());
         }
     }
 
@@ -112,7 +115,6 @@ public class Main {
 
         try (Scanner fileScanner = new Scanner(new File(USER_DATA_FILE))) {
             boolean found = false;
-
             while (fileScanner.hasNextLine()) {
                 String[] userData = fileScanner.nextLine().split(",");
                 if (userData.length >= 5 &&
@@ -178,7 +180,6 @@ public class Main {
     }
 
 
-    // [Previous signUpProcess(), signInProcess(), showRoleMenu() methods remain exactly the same]
 
     private static void searchAndDisplaySongs() {
         System.out.println("\nAvailable Artists:");
@@ -189,7 +190,6 @@ public class Main {
         System.out.print("Select an artist (enter number): ");
         int artistChoice = scanner.nextInt();
         scanner.nextLine();
-
         if (artistChoice < 1 || artistChoice > artists.size()) {
             System.out.println("Invalid choice!");
             return;
@@ -272,5 +272,19 @@ public class Main {
         }
         System.out.println(selectedSong.getLyrics());
         System.out.println("====================");
+
+        // Ask if user wants to play audio
+        if (selectedSong.hasAudio()) {
+            System.out.print("This song has an audio file. Do you want to play it? (y/n): ");
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("y")) {
+                //playAudio(selectedSong.getAudioFilePath());
+                selectedSong.playAudio();
+            }
+        } else {
+            System.out.println("No audio file available for this song.");
+        }
+        System.out.println("====================");
     }
+
 }

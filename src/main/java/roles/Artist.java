@@ -1,12 +1,12 @@
 package roles;
 
-
 import models.Album;
 import models.Song;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Artist {
     private String name;
@@ -22,14 +22,12 @@ public class Artist {
     public static Artist loadFromDirectory(Path artistPath) throws IOException {
         Artist artist = new Artist(artistPath.getFileName().toString());
 
-        // Load singles (directly in artist folder)
         try (DirectoryStream<Path> singlesStream = Files.newDirectoryStream(artistPath, "*.txt")) {
             for (Path songFile : singlesStream) {
                 artist.addSingle(Song.fromFile(songFile, artist.getName(), null));
             }
         }
 
-        // Load albums (subfolders)
         try (DirectoryStream<Path> albumsStream = Files.newDirectoryStream(artistPath, Files::isDirectory)) {
             for (Path albumPath : albumsStream) {
                 Album album = new Album(albumPath.getFileName().toString(), artist.getName());
