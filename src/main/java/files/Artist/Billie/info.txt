@@ -1,0 +1,6 @@
+Name: Billie
+Username: null
+Email: null
+Bio: 
+Followers: 0
+Active: true

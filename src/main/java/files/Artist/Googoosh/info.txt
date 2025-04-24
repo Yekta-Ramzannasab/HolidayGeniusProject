@@ -1,0 +1,6 @@
+Name: Googoosh
+Username: Googoosh
+Email: Googoosh@gmail.com
+Bio: 
+Followers: 0
+Active: true

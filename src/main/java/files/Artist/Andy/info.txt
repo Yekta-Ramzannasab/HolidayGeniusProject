@@ -1,0 +1,6 @@
+Name: Andy
+Username: Andy
+Email: Andy
+Bio: 
+Followers: 0
+Active: true
